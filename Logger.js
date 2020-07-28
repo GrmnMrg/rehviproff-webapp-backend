@@ -3,7 +3,6 @@ const winston = require('winston');
 // Logging
 const Logger = winston.createLogger({
 	format: winston.format.combine(
-		winston.format.colorize(),
 		winston.format.timestamp({format: 'YYYY-MM-DD HH:mm:ss'}),
 		winston.format.prettyPrint(),
 		winston.format.align(),

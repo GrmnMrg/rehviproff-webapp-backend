@@ -7,8 +7,6 @@ const logger = require('../Logger');
 
 router.post('/register', async (req, res) => {
 
-	logger.info('User registration request received: ' + JSON.stringify(req.body));
-
 	// Registration form input validation
 	const { error } = registrationValidation(req.body);
 	if (error) {
@@ -55,16 +53,26 @@ router.post('/login', async (req, res) => {
 
 	// Login form input validation
 	const { error } = loginValidation(req.body);
-	if (error) return res.status(400).send(error.details[0].message);
+	if (error) {
+		logger.warn('User login failed: ' + error.details[0].message);
+		return res.status(400).send(error.details[0].message);
+	}
 
 	// Check if the user exists based on username
 	const user = await User.findOne({ username: req.body.username });
-	if (!user) return res.status(400).send('There is no user with username ' + req.body.username + '.');
+	if (!user) {
+		logger.warn('User login failed: there is no user with username ' + req.body.username + '.');
+		return res.status(400).send('There is no user with username ' + req.body.username + '.');
+	}
 
 	// Check if password is correct
 	const passwordIsValid = await bcrypt.compare(req.body.password, user.password);
-	if (!passwordIsValid) return res.status(400).send('Invalid password.');
+	if (!passwordIsValid) {
+		logger.warn('User login failed: invalid password for username ' + req.body.username + '.');
+		return res.status(400).send('Invalid password.');
+	}
 
+	logger.info(req.body.username + ' Logged in successfully.');
 	res.send('Logged in successfully.')
 
 });
