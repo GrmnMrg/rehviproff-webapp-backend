@@ -15,12 +15,13 @@ const app = express();
 
 // Import Routes
 const userRoutes = require('./routes/userRoutes');
-const orderRoutes = require('./routes/orderRoutes');
+const workOrderRoutes = require('./routes/workOrderRoutes');
 
 // Middleware
 app.use(express.static(path.join(__dirname, 'build')));
 app.use(express.json());
 app.use('/api/user', userRoutes);
+app.use('/api/order', workOrderRoutes);
 
 // Express-session // TODO: Rework the session thing into its own file or somthing
 app.use(session({
