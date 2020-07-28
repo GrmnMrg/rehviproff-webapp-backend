@@ -12,3 +12,20 @@ When this server is running, you should be able to send requests for the server 
 
 ### Production
 In production the local enviornment should have pm2 installed and that should handle the service running
+
+### Endpoints
+
+#### User endpoints
+	/api/user/register
+		Register new user. Requires username, email and password. First-name and last-name are optional.
+	/api/user/isloggedin * To Be Done * 
+		Endpoint to check if the user is logged in (aka has a session up and running).
+	/api/user/login
+		Log in the user. On successful log in sets a JWT (Jason Web Token) in the header that is used to restrict access to some API endpoints.
+	/api/user/logout * To Be Done * 
+		TBD. Endpoint that kills the session, removes the JWT and lets you log in with another user.
+
+#### Workorder enpoints
+	/api/order/		* To Be Done * Gets like 10 latest orders
+	/api/order/save	* To Be Done * Save a new order or update an existing one
+	/api/order/del 	* To Be Done * Delete an order
