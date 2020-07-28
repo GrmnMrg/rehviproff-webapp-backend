@@ -1,3 +1,7 @@
+# enviornment
+.env
+combined.log
+
 # dependencies
 /node_modules
 

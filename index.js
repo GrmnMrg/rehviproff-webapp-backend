@@ -1,34 +1,29 @@
 const path = require('path');
+const dotenv = require('dotenv').config();
+const mongoose = require('mongoose');
 const express = require('express');
 const session = require('express-session');
-const mongoose = require('mongoose');
-const User = require('./models/User');
+const logger = require('./Logger');
 
-const Router = require('./Router');
+// Database
+mongoose.connect(process.env.DB_CONNECT, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true }, (err, e) => {
+	logger.info('Database connection established');
+}).catch(error => handleError(error));;
 
 // App
 const app = express();
+
+// Import Routes
+const userRoutes = require('./routes/userRoutes');
+const workOrderRoutes = require('./routes/workOrderRoutes');
+
+// Middleware
 app.use(express.static(path.join(__dirname, 'build')));
 app.use(express.json());
+app.use('/api/user', userRoutes);
+app.use('/api/order', workOrderRoutes);
 
-// Databse
-const url = 'mongodb://127.0.0.1:27017/rehviproff?compressors=zlib&gssapiServiceName=mongodb';
-
-mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true });
-
-const db = mongoose.connection;
-
-db.once('open', _ => {
-  console.log('Database connected:', url)
-})
-
-db.on('error', err => {
-  console.error('connection error:', err)
-})
-
-// Session
-console.log('should create the session store in mongo db here');
-
+// Express-session // TODO: Rework the session thing into its own file or somthing
 app.use(session({
 	key: 'session',
 	secret: 'session-secret',
@@ -41,13 +36,5 @@ app.use(session({
 	}
 }));
 
-// Router
-new Router(app, db);
-
-// Serve the front-end
-app.get('/', () => {
-	res.sendFile(path.join(__dirname, 'build', 'index.html'));
-});
-
 // Start the server
-app.listen(3000, () => console.log('Server started on port 3000'));
+app.listen(process.env.PORT, () => logger.info('Server started on port ' + process.env.PORT));
