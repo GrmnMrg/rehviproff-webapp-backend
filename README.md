@@ -1,9 +1,10 @@
 # Rehviproff Webapp Backend
-An express server that serves static react folder from root level. Server itself exposes a bunch of API endpoints for the frontend app to use.
+An express server that serves static react folder named "build" from root level. Server itself exposes a bunch of API endpoints for the frontend app to use.
 
 ### To Start
 clone the repo and cd into it
 in terminal run "npm install"
+to run the server you need to have a .env file in root directory where database connection url, port and jwt secret token are set
 
 ### Development
 in terminal run "npm run dev" (this will start nodemon instance, hotloading and compiling changes on the fly)
