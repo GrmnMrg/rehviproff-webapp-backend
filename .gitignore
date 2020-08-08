@@ -7,3 +7,6 @@ combined.log
 
 # production
 /build
+
+# local
+/.idea
