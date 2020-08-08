@@ -1,6 +1,6 @@
 # enviornment
 .env
-combined.log
+logs/combined.log
 
 # dependencies
 /node_modules
