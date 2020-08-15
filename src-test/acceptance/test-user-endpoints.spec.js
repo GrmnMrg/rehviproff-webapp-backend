@@ -12,7 +12,7 @@ describe('User endpoint tests', () => {
 
         it('should return JSON with new user id', (done) => {
 
-            chai.request('localhost:3000')
+            chai.request(global.rehviproff.localTestUrl)
                 .post('/api/user/register')
                 .set('Accept', 'application/json')
                 .send({
