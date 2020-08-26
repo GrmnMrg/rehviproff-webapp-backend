@@ -2,11 +2,11 @@
   "name": "rehviproff-webapp-backend",
   "version": "0.2.0",
   "description": "Rehviproff backend server",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
     "start": "node index",
-    "dev": "nodemon index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "nodemon src/index.js",
+    "test": "mocha src-test/**/*.spec.js"
   },
   "repository": {
     "type": "git",
@@ -30,6 +30,12 @@
     "winston": "^3.3.3"
   },
   "devDependencies": {
+    "chai": "^4.2.0",
+    "chai-http": "^4.3.0",
+    "mocha": "^8.1.1",
     "nodemon": "^2.0.4"
+  },
+  "mocha": {
+    "require": "./src-test/globals.js"
   }
 }
