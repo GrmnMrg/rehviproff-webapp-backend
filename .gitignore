@@ -8,5 +8,5 @@ combined.log
 # production
 /build
 
-# local
-/.idea
+# ide specific
+.idea
