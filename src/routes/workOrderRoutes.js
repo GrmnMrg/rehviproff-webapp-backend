@@ -6,7 +6,13 @@ const logger = require('../Logger');
 
 router.get('/', verify, async (req, res) => {
 
-	const workOrders = await WorkOrder.find();
+	let workOrders = [];
+
+	if (req.body.order_id) {
+		workOrders[0] = await WorkOrder.findById(req.body.order_id);
+	} else {
+		workOrders = await WorkOrder.find();
+	}
 
 	// Try and get and send back all work orders
 	try {
