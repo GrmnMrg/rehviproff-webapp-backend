@@ -1,5 +1,4 @@
 const path = require('path');
-const dotenv = require('dotenv').config();
 const mongoose = require('mongoose');
 const express = require('express');
 const session = require('express-session');
@@ -18,7 +17,7 @@ const userRoutes = require('./routes/userRoutes');
 const workOrderRoutes = require('./routes/workOrderRoutes');
 
 // Middleware
-app.use(express.static(path.join(__dirname, 'build')));
+app.use(express.static(path.join(__dirname, '../build')));
 app.use(express.json());
 app.use('/api/user', userRoutes);
 app.use('/api/order', workOrderRoutes);
