@@ -35,5 +35,9 @@ app.use(session({
 	}
 }));
 
+app.get("*", (req, res) => {
+	res.sendFile(path.join(__dirname + "../build/index.html"));
+})
+
 // Start the server
 app.listen(process.env.PORT, () => logger.info('Server started on port ' + process.env.PORT));
